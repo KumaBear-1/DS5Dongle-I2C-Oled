@@ -22,7 +22,10 @@
 
 int reportSeqCounter = 0;
 uint8_t packetCounter = 0;
+uint8_t packetCounter = 0;
 
+// --- 新增：定义屏幕对象 ---
+struct ssd1306_t disp; 
 uint8_t interrupt_in_data[63] = {
     0x7f, 0x7d, 0x7f, 0x7e, 0x00, 0x00, 0xa7,
     0x08, 0x00, 0x00, 0x00, 0x52, 0x43, 0x30, 0x41,
@@ -170,7 +173,26 @@ int main() {
     vreg_set_voltage(VREG_VOLTAGE_1_20);
     sleep_ms(1000);
     set_sys_clock_khz(320000, true);
+ // 1. 初始化 I2C1 (因为你用了 GP14/15，它们属于 I2C1 模块)
+    i2c_init(i2c1, 400 * 1000);       // 初始化 I2C1，频率 400kHz
+    
+    // 2. 设置引脚功能：把 GP14 和 GP15 配置为 I2C 模式
+    gpio_set_function(14, GPIO_FUNC_I2C); // GP14 -> SDA
+    gpio_set_function(15, GPIO_FUNC_I2C); // GP15 -> SCL
+    
+    // 3. 开启上拉电阻 (这对 I2C 通信稳定很重要)
+    gpio_pull_up(14);
+    gpio_pull_up(15);
 
+    // 4. 初始化屏幕驱动
+    // 注意这里第一个参数填了 '1'，代表使用 I2C1
+    ssd1306_init(&disp, 128, 64, 1, i2c1); 
+    
+    // 5. 测试显示
+    ssd1306_clear(&disp);
+    ssd1306_draw_string(&disp, 0, 0, 1, "DS5 Dongle");
+    ssd1306_show(&disp);
+    // ============================================
     board_init();
     tusb_rhport_init_t dev_init = {
         .role = TUSB_ROLE_DEVICE,
