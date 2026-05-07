@@ -14,6 +14,8 @@
 #include "pico/cyw43_arch.h"
 #include "config.h"
 #include "cmd.h"
+#include "ssd1306.h"
+#include "font.h"
 
 // Pico SDK speciifically for waiting on conditions
 #include "pico/critical_section.h"
