@@ -46,8 +46,8 @@ add_executable(ds5-bridge
         src/bt.cpp
         src/config.cpp
         src/cmd.cpp
-        src/ssd1306.cpp
-        src/gfx.cpp    
+        src/SSD1306.cpp
+        src/GFX.cpp    
 )
 
 # Cockos WDLResampler
