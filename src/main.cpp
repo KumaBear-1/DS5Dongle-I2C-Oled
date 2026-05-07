@@ -17,8 +17,8 @@
 
 // --- 新增：OLED 屏幕相关的头文件和定义 ---
 #include "hardware/i2c.h" // Pico I2C 库
-#include "ssd1306.h" 
-#include "gfx.h"
+#include "SSD1306.hpp" 
+#include "GFX.hpp"
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
