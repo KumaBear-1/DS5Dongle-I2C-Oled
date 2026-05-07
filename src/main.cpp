@@ -93,8 +93,7 @@ void on_bt_data(CHANNEL_TYPE channel, uint8_t *data, uint16_t len) {
     if (channel == INTERRUPT && data == 0x31) {
         if ((data & 1) != (interrupt_in_data & 1)) {
             set_headset(data & 1);
-        }<websource>source_group_web_1</websource>
-
+        }
         if (get_config().polling_rate_mode != 2) {
             memcpy(interrupt_in_data, data + 3, 63);
             return;
@@ -177,7 +176,7 @@ void tud_hid_set_report_cb(uint8_t itf, uint8_t report_id, hid_report_type_t rep
         set_feature_data(report_id,const_cast<uint8_t *>(buffer),bufsize);
         return;
     }
-}<websource>source_group_web_2</websource>
+}
 
 int main() {
     vreg_set_voltage(VREG_VOLTAGE_1_20);
