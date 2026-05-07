@@ -104,6 +104,7 @@ target_link_libraries(ds5-bridge
         tinyusb_board
         wdl_resampler
         opus
+        hardware_i2c
 )
 
 pico_add_extra_outputs(ds5-bridge)
